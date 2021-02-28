@@ -9,8 +9,10 @@ public class Spawner
 	private HUD hud;
 	private Random r = new Random();
 	
-	private int scoreKeep = 0;
-	
+	private int initialSpawn = 0;
+
+	private int scoreKeep = 0;	
+
 	public Spawner(Handler handler, HUD hud)
 	{
 		this.handler = handler;
@@ -21,7 +23,14 @@ public class Spawner
 	{
 		scoreKeep++;
 		
-		if(scoreKeep >= 50)
+		while(initialSpawn == 0)
+		{
+		handler.addObject(new Player(Game.WIDTH/2-32, Game.HEIGHT/2-32, ID.Player, handler));
+		handler.addObject(new BasicEnemy(r.nextInt(Game.WIDTH - 50), r.nextInt(Game.HEIGHT - 50), ID.BasicEnemy, handler));
+		++initialSpawn;
+		}
+		
+		if(scoreKeep >= 100)
 		{
 			scoreKeep = 0;
 			hud.setLevel(hud.getLevel() + 1);
@@ -35,8 +44,12 @@ public class Spawner
 			} else if(hud.getLevel() == 5)
 			{
 				handler.addObject(new FastEnemy(r.nextInt(Game.WIDTH - 50), r.nextInt(Game.HEIGHT - 50), ID.FastEnemy, handler));
+			} else if(hud.getLevel() == 6)
+			{
+				handler.addObject(new FastEnemy(r.nextInt(Game.WIDTH - 50), r.nextInt(Game.HEIGHT - 50), ID.FastEnemy, handler));
 			} else if(hud.getLevel() == 7)
 			{
+				handler.addObject(new SmartEnemy(r.nextInt(Game.WIDTH - 50), r.nextInt(Game.HEIGHT - 50), ID.SmartEnemy, handler));
 				handler.addObject(new SmartEnemy(r.nextInt(Game.WIDTH - 50), r.nextInt(Game.HEIGHT - 50), ID.SmartEnemy, handler));
 			} else if(hud.getLevel() == 10)
 			{
@@ -45,4 +58,25 @@ public class Spawner
 			}
 		}
 	}
+	
+	public int getScoreKeep() 
+	{
+		return scoreKeep;
+	}
+
+	public void setScoreKeep(int scoreKeep) 
+	{
+		this.scoreKeep = scoreKeep;
+	}
+
+	public int getInitialSpawn() 
+	{
+		return initialSpawn;
+	}
+
+	public void setInitialSpawn(int initialSpawn) 
+	{
+		this.initialSpawn = initialSpawn;
+	}
+
 }
