@@ -33,11 +33,8 @@ public class Menu extends MouseAdapter
 			//play button
 			if(mouseOver(mx, my, 210, 150, 200, 64))
 			{
-				game.gameState = STATE.Game;
-				//handler.addObject(new Player(Game.WIDTH/2-32, Game.HEIGHT/2-32, ID.Player, handler));
-				handler.clearEnemies();
-				//handler.addObject(new BasicEnemy(r.nextInt(Game.WIDTH - 50), r.nextInt(Game.HEIGHT - 50), ID.BasicEnemy, handler));
-				
+				game.gameState = STATE.Select;
+				return;
 			}		
 			//help button
 			if(mouseOver(mx, my, 210, 250, 200, 64))
@@ -48,6 +45,32 @@ public class Menu extends MouseAdapter
 			if(mouseOver(mx, my, 210, 350, 200, 64))
 			{
 				System.exit(1);		
+			}
+		}
+		//difficulty screen
+		if(game.gameState == STATE.Select)
+		{
+			//normal difficulty
+			if(mouseOver(mx, my, 210, 150, 200, 64))
+			{
+				game.gameState = STATE.Game;
+				handler.clearEnemies();
+				game.diff = 0;
+				return;
+			}
+			//hard difficulty
+			if(mouseOver(mx, my, 210, 250, 200, 64))
+			{
+				game.gameState = STATE.Game;
+				handler.clearEnemies();
+				game.diff = 1;
+				return;
+			}
+			//back button
+			if(mouseOver(mx, my, 210, 350, 200, 64))
+			{
+				game.gameState = STATE.Menu;
+				return;
 			}
 		}
 		//back button for help
@@ -69,7 +92,7 @@ public class Menu extends MouseAdapter
 			}
 			if(mouseOver(mx, my, 210, 350, 200, 64))
 			{
-				game.gameState = STATE.Game;
+				game.gameState = STATE.Select;
 				return;
 			}
 		}
@@ -128,6 +151,7 @@ public class Menu extends MouseAdapter
 			
 			g.setFont(fnt3);
 			g.drawString("Use WASD or Arrow keys to move player and dodge enemies", 20, 200);
+			g.drawString("Press p to pause", 20, 250);
 			
 			g.setFont(fnt2);
 			g.drawRect(210, 350, 200, 64);
@@ -151,7 +175,25 @@ public class Menu extends MouseAdapter
 			
 			g.drawRect(210, 350, 200, 64);
 			g.drawString("Try Again", 250, 390);
-		}		
+		}else if(game.gameState == STATE.Select)
+		{
+			Font fnt = new Font("arial", 1, 50);
+			Font fnt2 = new Font("arial", 1, 30);
+			
+			g.setFont(fnt);
+			g.setColor(Color.white);
+			g.drawString("SELECT DIFFICULTY", 70, 70);
+			
+			g.setFont(fnt2);
+			g.drawRect(210, 150, 200, 64);
+			g.drawString("Normal", 270, 190);
+			
+			g.drawRect(210, 250, 200, 64);
+			g.drawString("Hard", 270, 290);
+			
+			g.drawRect(210, 350, 200, 64);
+			g.drawString("Back", 270, 390);
+		}
 	}
 	
 }

@@ -10,10 +10,12 @@ public class Player extends GameObject
 
 	Random r = new Random();
 	Handler handler;
+	HUD hud;
 	
-	public Player(int x, int y, ID id, Handler handler) {
+	public Player(int x, int y, ID id, Handler handler, HUD hud) {
 		super(x, y, id);
 		this.handler = handler;
+		this.hud = hud;
 		
 	}
 	
@@ -41,11 +43,11 @@ public class Player extends GameObject
 		{
 			GameObject tempObject = handler.object.get(i);
 			
-			if(tempObject.getID() == ID.BasicEnemy || tempObject.getID() == ID.FastEnemy || tempObject.getID() == ID.SmartEnemy || tempObject.getID() == ID.EnemyBoss1)
+			if(tempObject.getID() == ID.BasicEnemy || tempObject.getID() == ID.FastEnemy || tempObject.getID() == ID.SmartEnemy || tempObject.getID() == ID.EnemyBoss1 || tempObject.getID() == ID.HardEnemy)
 			{
 				if(getBounds().intersects(tempObject.getBounds()))
 				{//collision code
-					HUD.HEALTH -= 2;
+					HUD.setHEALTH(HUD.getHEALTH() - 2);
 				}
 			}
 		}
