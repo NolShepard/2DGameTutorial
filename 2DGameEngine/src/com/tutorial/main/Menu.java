@@ -152,6 +152,7 @@ public class Menu extends MouseAdapter
 			g.setFont(fnt3);
 			g.drawString("Use WASD or Arrow keys to move player and dodge enemies", 20, 200);
 			g.drawString("Press p to pause", 20, 250);
+			g.drawString("Press space to open shop", 20, 300);
 			
 			g.setFont(fnt2);
 			g.drawRect(210, 350, 200, 64);
